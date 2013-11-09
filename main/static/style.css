@@ -18,5 +18,22 @@ body {
 }
 
 #navbar {
-    text-align: right;
+}
+
+#welcome {
+    float: left;
+}
+
+#logout {
+    float: right;
+}
+
+#wall {
+    width: 330px;
+    float: left;
+}
+
+#stats {
+    width: 330px;
+    float: right;
 }

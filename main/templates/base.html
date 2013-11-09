@@ -10,11 +10,13 @@
 
 {% block navbar %}
 <div id='navbar' class='section'>
-    <a href='/auth/logout'>Logout ({{ user.username }})</a>
+    <span id='welcome'>Welcome {{ user.username }}</span>
+    <span id='logout'><a href='/auth/logout'>Logout</a></span>
+    <div class='cleardiv'></div>
 </div>
 {% endblock %}
 
-<div id='content' class='section'>
+<div id='content'>
 {% block content %}
 &nbsp;
 {% endblock %}
