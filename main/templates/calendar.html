@@ -10,7 +10,7 @@
 {% for week in weeks %}
     <tr class='calendar-row'>
     {% for day in week %}
-        <td class='datecell {% if day.istoday %}todaycell{% endif %}'>{{day.date.day}}</td>
+        <td id='datecell_{{day.date | date:"Y-m-d"}}' class='datecell {% if day.istoday %}todaycell{% endif %} {% if day.isSelected %}selected-datecell{% endif %}'>{{day.date.day}}</td>
     {% endfor %}
     </tr>
 {% endfor %}

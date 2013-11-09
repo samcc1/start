@@ -1,7 +1,6 @@
 
 body {
     background-color: #bbbbbb;
-    padding: 50px;
 }
 
 #main {
@@ -43,19 +42,43 @@ body {
 }
 
 .calendar-row {
-    border: 1px solid gray;
 }
 
 .datecell {
     width: 50px;
     height: 50px;
-    border: 1px solid black;
+    border: 1px solid #DDDDDD;
     vertical-align: top;
+    cursor: pointer;
+    cursor: hand;
+    font-size: 14px;
+    padding: 0px 2px;
 }
 
 .todaycell {
     background-color: #FFDDDD;
     color: #CC4444;
+}
+
+.selected-datecell {
+    border: 1px solid #000000;
+    background-color: #CCCCCC;
+}
+
+.todaycell.selected-datecell {
+    background-color: #CCAAAA;
+}
+
+#calendar-table tr:last-child td:first-child {
+    -moz-border-radius-bottomleft:10px;
+    -webkit-border-bottom-left-radius:10px;
+    border-bottom-left-radius:10px
+}
+
+#calendar-table tr:last-child td:last-child {
+    -moz-border-radius-bottomright:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-right-radius:10px
 }
 
 #wall {

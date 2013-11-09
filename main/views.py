@@ -6,34 +6,38 @@ import datetime
 
 WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-def gettoday():
+def getToday():
     #return datetime.date(2013, 10, 17)
     return datetime.date.today()
 
 class CalendarDate(object):
-    def __init__(self, date):
+    def __init__(self, date, isSelected=False):
         self.date = date
-        self.istoday = date == gettoday()
-
+        self.istoday = date == getToday()
+        self.isSelected = isSelected
 
 def GetGoalEntryList(user, date):
     goalentry_list = GoalEntry.objects.filter(user = user, entrydate = date)
     return goalentry_list
 
-@login_required
-def home(request):
-    today = gettoday()
+def getWeeksToDisplay(selectedDate = getToday()):
+    today = getToday()
     enddate = datetime.datetime.strptime(datetime.datetime.strftime(today, "%Y %W 0"), "%Y %W %w").date() # magic
     weeks = []
     for weekoffset in range(4, -1, -1):
         week = []
         for dayoffset in range(6, -1, -1):
             date = enddate - datetime.timedelta(weekoffset * 7 + dayoffset + 1)
-            caldate = CalendarDate(date)
+            caldate = CalendarDate(date, date == selectedDate)
             week.append(caldate)
         weeks.append(week)
-    goalentry_list = GetGoalEntryList(request.user, today)
-    return render(request, 'home.html', {'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list' : goalentry_list})
+    return weeks
+
+@login_required
+def home(request):
+    weeks = getWeeksToDisplay()
+    goalentry_list = GetGoalEntryList(request.user, getToday())
+    return render(request, 'home.html', {'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list})
 
 def new_goal(request):
 	if request.method == 'POST':
