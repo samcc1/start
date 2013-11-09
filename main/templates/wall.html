@@ -1,10 +1,23 @@
 <div id='wall' class='section'>
-Summary Wall 
+<h3>Goal Wall</h3>
+<h4>{{date}}<h4>
+<hr>
 {% for goalentry in goalentry_list %}
-date {{goalentry.entrydate}}
-{{goalentry.starcolor}}
-{{goalentry.stat}} {{goalentry.stat_desc}}
+<div id='wall-entry'>
+<p align='left'><b>{{goalentry.goal.title}}</b>
+{% if goalentry.starcolor == 1 %}
+	<img class='summary-star' src='static/stars/bronze.png'>
+{% elif goalentry.starcolor == 2 %}
+	<img class='summary-star' src='static/stars/silver.png'>
+{% elif goalentry.starcolor == 3 %}
+	<img class='summary-star' src='static/stars/gold.png'>
+{% endif %}
+<br>
+{{goalentry.stat_desc}} {{goalentry.stat}}
+<br>
 {{goalentry.desc}}
+</p>
+</div>
 {% endfor %}
 </div>
 

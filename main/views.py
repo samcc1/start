@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from main.forms import NewGoalForm
 from models import GoalEntry
+from models import Goal
 import datetime
 
 WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -17,6 +18,7 @@ class CalendarDate(object):
         self.isSelected = isSelected
 
 def GetGoalEntryList(user, date):
+    goalentry_list = []
     goalentry_list = GoalEntry.objects.filter(user = user, entrydate = date)
     return goalentry_list
 
