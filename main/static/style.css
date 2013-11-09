@@ -43,6 +43,7 @@ body {
 }
 
 .calendar-row {
+    border: 1px solid gray;
 }
 
 .datecell {

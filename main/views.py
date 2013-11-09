@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from main.forms import NewGoalForm
+from models import GoalEntry
 import datetime
 
 WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -14,6 +15,11 @@ class CalendarDate(object):
         self.date = date
         self.istoday = date == gettoday()
 
+
+def GetGoalEntryList(user, date):
+    goalentry_list = GoalEntry.objects.filter(user = user, entrydate = date)
+    return goalentry_list
+
 @login_required
 def home(request):
     today = gettoday()
@@ -26,7 +32,8 @@ def home(request):
             caldate = CalendarDate(date)
             week.append(caldate)
         weeks.append(week)
-    return render(request, 'home.html', {'weekdays': WEEKDAYS, 'weeks': weeks})
+    goalentry_list = GetGoalEntryList(request.user, today)
+    return render(request, 'home.html', {'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list' : goalentry_list})
 
 def new_goal(request):
 	if request.method == 'POST':
