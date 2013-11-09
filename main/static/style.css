@@ -29,6 +29,27 @@ body {
     float: right;
 }
 
+#calendar {
+    text-align: center;
+    padding: 10px;
+}
+
+#calendar-table {
+    background-color: #EEEEEE;
+    width: 350px;
+    height: 250px;
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: auto;
+}
+
+.datecell {
+}
+
+.todaycell {
+    color: red;
+}
+
 #wall {
     width: 330px;
     float: left;

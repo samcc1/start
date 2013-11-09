@@ -1,5 +1,18 @@
 
 <input id='create_new_goal' value='New Goal' type='submit'>
 <div id='calendar' class='section'>
-Calendar goes here
+<table id='calendar-table'>
+<tr>
+{% for weekday in weekdays %}
+    <th class='weekdaycell'>{{weekday}}</th>
+{% endfor %}
+</tr>
+{% for week in weeks %}
+    <tr>
+    {% for day in week %}
+        <td class='datecell {% if day.istoday %}todaycell{% endif %}'>{{day.date.day}}</td>
+    {% endfor %}
+    </tr>
+{% endfor %}
+</table>
 </div>
