@@ -1,6 +1,7 @@
 
 body {
     background-color: #bbbbbb;
+    padding: 50px;
 }
 
 #main {
@@ -58,4 +59,8 @@ body {
 #stats {
     width: 330px;
     float: right;
+}
+
+.tooltiptext{
+    display: none;
 }
