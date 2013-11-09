@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block navbar %}{% endblock %}
+
+{% block content %}
+<div id=loginDiv>
+    <h3>Login</h3>
+    <form method="POST">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+    </form>
+</div>
+    
+<div id=signupDiv>
+    <h3>Signup</h3>
+    <form method="POST" action="/auth/newUser/">{% csrf_token %}
+    {{ newUserForm.as_p }}
+    <input type=submit value="Submit" />
+    </form>
+</div>
+    
+<div class=cleardiv></div>
+{% endblock %}

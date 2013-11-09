@@ -1,0 +1,26 @@
+.errorlist {
+    color: red;
+}
+
+.helptext {
+    display: none;
+}
+
+#loginDiv {
+    width: 48%;
+    float: left;
+    text-align: left;
+    padding: 5px;
+}
+
+#signupDiv {
+    width: 48%;
+    float: right;
+    text-align: right;
+    border-left: 1px solid gray;
+    padding: 5px;
+}
+
+.cleardiv {
+    clear: both;
+}

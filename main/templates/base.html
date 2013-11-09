@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Start</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/auth/style.css">
+</head>
+
+<body>
+<div id='main'>
+
+{% block navbar %}
+<div id='navbar' class='section'>
+    <a href='/auth/logout'>Logout ({{ user.username }})</a>
+</div>
+{% endblock %}
+
+<div id='content' class='section'>
+{% block content %}
+&nbsp;
+{% endblock %}
+</div>
+
+</div>
+</body>
+</html>
+
