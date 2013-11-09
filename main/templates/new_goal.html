@@ -1,0 +1,12 @@
+<form name='create_new_goal' id='create_new_goal' method="post">
+
+{%csrf_token %}
+{{ form.as_p  }}
+
+<div id='submit_button_container'>
+<input id='submit_new_goal' value='Create' type='submit'>
+</div>
+
+</form>
+
+
