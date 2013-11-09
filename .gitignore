@@ -1,0 +1,4 @@
+*.pyc
+start.sqlite
+start/static
+start/media
