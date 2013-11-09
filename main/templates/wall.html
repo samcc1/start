@@ -1,10 +1,11 @@
 <div id='wall' class='section'>
 <h3>Goal Wall</h3>
-<h4>{{date}}<h4>
+<h4>{{date}}</h4>
 <hr>
 {% for goalentry in goalentry_list %}
 <div id='wall-entry'>
-<p align='left'><b>{{goalentry.goal.title}}</b>
+<p align='left'>
+<b>{{goalentry.goal.title}}</b>
 {% if goalentry.starcolor == 1 %}
 	<img class='summary-star' src='static/stars/bronze.png'>
 {% elif goalentry.starcolor == 2 %}
