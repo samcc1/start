@@ -43,7 +43,7 @@ def home(request):
 
     weeks = getWeeksToDisplay()
     goalentry_list = GetGoalEntryList(request.user, getToday())
-    form = NewGoalForm(initial={'startdate': datetime.date.today()})
+    form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
     return render(request, 'home.html', {'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list})
 
 def handle_new_goal_form(request):
@@ -51,6 +51,8 @@ def handle_new_goal_form(request):
     if form.is_valid():
         new_goal = form.save(commit=False)
         new_goal.user = request.user
+        print new_goal.numdays
+        new_goal.enddate = new_goal.startdate + datetime.timedelta(days=new_goal.numdays)
         new_goal.save()
         form = NewGoalForm(initial={'startdate': datetime.date.today()})
         response = render(request, 'new_goal.html', {'form': form})

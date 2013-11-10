@@ -1,6 +1,6 @@
 function qtip_content() {
     // MAKE SURE YOUR SELECTOR MATCHES SOMETHING IN YOUR HTML!!!
-    $('a').each(function() {
+    $('#create_new_goal2').each(function() {
         $(this).qtip({
             content: {
                 text: $(this).next('.tooltiptext'),
@@ -8,6 +8,9 @@ function qtip_content() {
                     text: 'Create New Goal',
                     button: 'Close' // Close button
                 },
+            },
+            style: { 
+                name: 'dark' // Inherit from preset style
             },
             hide: false // Don't hide on any event except close button
         });

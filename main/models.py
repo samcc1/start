@@ -6,6 +6,7 @@ class Goal(models.Model):
 	title = models.CharField(max_length=512)
 	startdate = models.DateField()
 	enddate = models.DateField()
+	numdays = models.IntegerField()
 	icon = models.IntegerField()
 
 
