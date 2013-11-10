@@ -11,7 +11,7 @@ function qtip_content() {
                 },
             },
             style: { 
-                name: 'dark' // Inherit from preset style
+                classes: 'qtip-blue qtip-rounded'
             },
             show: 'click',
             hide: false // Don't hide on any event except close button
