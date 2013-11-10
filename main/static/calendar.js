@@ -68,21 +68,20 @@ function submit_new_goal() {
 function submit_new_goal_entry(eventObject) {
     console.log("in submit new goal entry");
     form = $(eventObject.target);
-    console.log(eventObject.target);
-    console.log(form);
     $.post("", form.serialize(), function (data, textStatus, jqXHR) {
         if (jqXHR.getResponseHeader('X-addNewGoalEntryStatus') == 'success') {
             var container_id = 'div_' + open_qtip
             console.log($('#' + container_id));
-            console.log(data);
-            $('#' + container_id).html(data);
+            //$('#' + container_id).html(data);
             $('#' + open_qtip).qtip('hide');
-            register_new_goal_handler();
+            //register_new_goal_handler();
             // TODO - Add in a new goal tab to calendar
+            if ($('#' + open_qtip).children('.summary-star').length == 0) {
+                $('#' + open_qtip).append("<img class='summary-star' src='static/stars/gold.png'>");
+            }
         } else {
             var container_id = 'div_' + open_qtip
             console.log($('#' + container_id));
-            console.log(data);
             $('#' + container_id).html(data);
             console.log("In the failed case");
             $('#' + container_id).show();

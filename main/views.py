@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from main.forms import NewGoalForm,NewGoalEntryForm
-from models import GoalEntry
-from models import Goal
+from models import GoalEntry, Goal
 import datetime
 
 WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -89,9 +88,14 @@ def handle_new_goal_form(request):
     return response
 
 def handle_new_goal_entry_form(request):
-    nge_form = NewGoalEntryForm(request.POST)
+    try:
+        goal_entry = GoalEntry.objects.get(entrydate=request.POST['entrydate'])
+        nge_form = NewGoalEntryForm(request.POST, instance=goal_entry)
+    except ObjectDoesNotExist:
+        nge_form = NewGoalEntryForm(request.POST)
     if nge_form.is_valid():
         print "form is valid for goal entry"
+        
         new_goal_entry = nge_form.save(commit=False)
         new_goal_entry.user = request.user
         new_goal_entry.save()
