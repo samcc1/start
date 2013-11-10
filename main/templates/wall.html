@@ -5,7 +5,7 @@
 {% for week in weeks reversed %}
     {% for caldate in week reversed %}
         {% if caldate.entries %}
-            <div class='wall-day'>
+            <div id='wall-day-{{caldate.date | date:"Y-m-d"}}' class='wall-day' date='{{caldate.date | date:"Y-m-d"}}'>
                 <div>{{caldate.date | date:"M d"}}</div>
                 {% for goalentry in caldate.entries.values %}
                     <div id='wall-entry'>

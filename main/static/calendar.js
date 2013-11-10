@@ -66,12 +66,21 @@ function submit_new_goal() {
 }
 
 function submit_new_goal_entry(eventObject) {
-    console.log("in submit new goal entry");
     form = $(eventObject.target);
     $.post("", form.serialize(), function (data, textStatus, jqXHR) {
         if (jqXHR.getResponseHeader('X-addNewGoalEntryStatus') == 'success') {
-            goalid = form.find('select[name="goal"]').val();
+            goalSelect = form.find('select[name="goal"]');
+            goalid = goalSelect.val();
+            goalname = goalSelect.find('option[value="' + goalid + '"]').text()
             starcolor = form.find('select[name="starcolor"]').val();
+            entrydate = form.find('input[name="entrydate"]').val();
+            goalentry = form.find('textarea[name="desc"]').val()
+            goalcolor = $('#goal-tab-' + goalid).attr('goalcolor');
+
+            console.log('goalname: ' + goalname);
+            console.log('goalentry: ' + goalentry);
+            console.log('goalcolor: ' + goalcolor);
+
             var container_id = 'div_' + open_qtip
             $('#' + open_qtip).qtip('hide');
             var daySelector = '#' + open_qtip;
@@ -93,14 +102,34 @@ function submit_new_goal_entry(eventObject) {
             }
 
             if ($(dayStarSelector).length == 0) {
+                console.log('add star');
                 // There's no star on this day for this goal, so just add it.
-                $(daySelector).append("<div class='calendar-star star-"+goalid+"'><img class='summary-star star-value-"+starcolor+"' src='"+file+"'></div>");
+                $(daySelector).append("<div class='calendar-star star-"+goalid+"'><img class='summary-star star-value-"+starcolor+"' src='"+file+"'></div>").children(':last').show();
             } else if ($(dayStarColorSelector).length == 0) {
+                console.log('change star');
                 // There is a star on this day for this goal, but it's the wrong color, so we need to update it.
                 star = $(dayStarAnySelector);
                 star.removeClass('star-value-1 star-value-2 star-value-3');
                 star.addClass('star-value=' + starcolor);
                 star.attr('src', file);
+            } else {
+                console.log('do nothing');
+            }
+
+            wallday = $('#wall-day-' + entrydate);
+            if (wallday.length == 0) {
+                // find the right place to insert a new wall-day
+            } else {
+                wallday.append("<div id='wall-entry'>" +
+                            "<img class='summary-star wall-star' src='"+file+"'>" +
+                            "<div class='goal-wall-entry'>" +
+                            "[<span class='goal-color-"+goalcolor+"'>"+goalname+"</span>] " +
+                            "</div>" +
+                            "<div class='goal-wall-entry'>" +
+                            "    " + goalentry +
+                            "</div>" +
+                            "<div class='cleardiv'></div>" +
+                        "</div> ").children(':last').hide().slideDown();
             }
         } else {
             var container_id = 'div_' + open_qtip
