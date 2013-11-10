@@ -88,14 +88,18 @@ function submit_new_goal_entry(eventObject) {
             switch (starcolor) {
                 case '1':
                     file = "/static/stars/bronze.png";
+                    data_bronze[parseInt(goalid) - 1] += 1;
                     break;
                 case '2':
                     file = "/static/stars/silver.png";
+                    data_silver[parseInt(goalid) - 1] += 1;
                     break;
                 case '3':
                     file = "/static/stars/gold.png";
+                    data_gold[parseInt(goalid) - 1] += 1;
                     break;
             }
+            PrintStackedBarChart(data_gold, data_silver, data_bronze, labels);
 
             if ($(dayStarSelector).length == 0) {
                 // There's no star on this day for this goal, so just add it.

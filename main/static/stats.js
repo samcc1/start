@@ -1,5 +1,6 @@
 /* Prints Stacked Bar Chard for Summary page. */
 function PrintStackedBarChart(data_gold, data_silver, data_bronze, labels){
+    $('#chart').html('');
     plot3 = $.jqplot('chart', [data_gold, data_silver, data_bronze], {
         stackSeries: true,
 	title: 'Goal Summary',
