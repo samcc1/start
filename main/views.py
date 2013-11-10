@@ -25,7 +25,7 @@ class CalendarDate(object):
                 self.entries[goal.id] = entry
                 self.forms[goal.id] = NewGoalEntryForm(entry)
             except ObjectDoesNotExist:
-                self.forms[goal.id] = NewGoalEntryForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
+                self.forms[goal.id] = NewGoalEntryForm()
 
 def GetGoalEntryList(user, start_date, end_date):
     goalentry_list = []
@@ -67,8 +67,8 @@ def home(request):
     goals = Goal.objects.filter(user = request.user)
     goalentry_list = GetGoalEntryList(request.user, getToday(), display_duration_start)
     form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
-    nge_form = NewGoalEntryForm()
-    return render(request, 'home.html', {'nge_form': nge_form, 'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
+#    nge_form = NewGoalEntryForm()
+    return render(request, 'home.html', {'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
 
 def handle_new_goal_form(request):
     form = NewGoalForm(request.POST)

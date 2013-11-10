@@ -48,7 +48,7 @@ class NewGoalForm(forms.ModelForm):
 class NewGoalEntryForm(forms.ModelForm):
 	class Meta:
 		model = GoalEntry
-		fields = ['goal','entrydate','desc','starcolor','stat']
+		fields = ['goal','entrydate','desc','starcolor']
 		widgets = {
 			'stat':DynNameTextInput()
 		}

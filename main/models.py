@@ -24,7 +24,6 @@ class GoalEntry(models.Model):
 	entrydate = models.DateField()
 	desc = models.TextField(blank=True)
 	starcolor = models.IntegerField(choices=STAR_COLORS)
-	stat = models.IntegerField()
 
 	def __str__(self):
 		return '%s %s' % (self.entrydate, str(self.goal))
