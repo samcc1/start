@@ -53,6 +53,7 @@ def handle_new_goal_form(request):
         new_goal.user = request.user
         print new_goal.numdays
         new_goal.enddate = new_goal.startdate + datetime.timedelta(days=new_goal.numdays)
+        new_goal.icon = Goal.objects.filter(user=request.user).count()
         new_goal.save()
         form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
         response = render(request, 'new_goal.html', {'form': form})
