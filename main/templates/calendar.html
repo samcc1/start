@@ -22,7 +22,12 @@
 {% for week in weeks %}
     <tr class='calendar-row'>
     {% for day in week %}
-        <td id='datecell_{{day.date | date:"Y-m-d"}}' class='datecell {% if day.istoday %}todaycell{% endif %} {% if day.isSelected %}selected-datecell{% endif %}'>{% if day.date.day == 1 %}{{day.date | date:"j M"}}{% else %}{{day.date | date:"j"}}{% endif %}</td>
+        <td id='datecell_{{day.date | date:"Y-m-d"}}' class='datecell {% if day.istoday %}todaycell{% endif %} {% if day.isSelected %}selected-datecell{% endif %}'>
+		{% if day.date.day == 1 %}{{day.date | date:"j M"}}{% else %}{{day.date | date:"j"}}{% endif %}
+		<div id= 'div_datecell_{{day.date | date:"Y-m-d"}}' class="tooltiptext">
+			{% include 'new_goal_entry.html' %}
+		</div>
+		</td>
     {% endfor %}
     </tr>
 {% endfor %}

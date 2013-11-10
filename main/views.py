@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from main.forms import NewGoalForm
+from main.forms import NewGoalForm,NewGoalEntryForm
 from models import GoalEntry
 from models import Goal
 import datetime
@@ -38,13 +38,21 @@ def getWeeksToDisplay(selectedDate = getToday()):
 @login_required
 def home(request):
     if request.method == 'POST':
-        return handle_new_goal_form(request)
+        print(request.POST)
+        print("\nafter request\n");
+        if 'starcolor' in request.POST :
+            print("in handle new entry")
+            return handle_new_goal_entry_form(request)
+        else:
+            print("in handle new goal")
+            return handle_new_goal_form(request)
 
     weeks = getWeeksToDisplay()
     goals = Goal.objects.filter(user = request.user)
     goalentry_list = GetGoalEntryList(request.user, getToday())
     form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
-    return render(request, 'home.html', {'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
+    nge_form = NewGoalEntryForm()
+    return render(request, 'home.html', {'nge_form': nge_form, 'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
 
 def handle_new_goal_form(request):
     form = NewGoalForm(request.POST)
@@ -61,4 +69,22 @@ def handle_new_goal_form(request):
     else:
         response = render(request, 'new_goal.html', {'form': form})
         response['X-addNewGoalStatus'] = 'failed'
+    return response
+
+def handle_new_goal_entry_form(request):
+    nge_form = NewGoalEntryForm(request.POST)
+    if nge_form.is_valid():
+        print "form is valid for goal entry"
+        new_goal_entry = nge_form.save(commit=False)
+        new_goal_entry.user = request.user
+        new_goal_entry.save()
+        nge_form = NewGoalEntryForm() 
+        response = render(request, "new_goal_entry.html", {'nge_form': nge_form}) 
+ 
+        response['X-addNewGoalEntryStatus'] = 'success'
+    else:
+        print "form is invalid for goal entry"
+        response = render(request, "new_goal_entry.html", {'nge_form': nge_form}) 
+        response['X-addNewGoalEntryStatus'] = 'failed'
+
     return response

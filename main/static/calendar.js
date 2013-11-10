@@ -1,3 +1,4 @@
+var open_qtip;
 
 function qtip_content() {
     // MAKE SURE YOUR SELECTOR MATCHES SOMETHING IN YOUR HTML!!!
@@ -19,8 +20,31 @@ function qtip_content() {
     });
 }
 
+function datecell_qtip_content() {
+    // MAKE SURE YOUR SELECTOR MATCHES SOMETHING IN YOUR HTML!!!
+    $('td').each(function() {
+        var id='div_' + $(this).attr('id');
+        $(this).qtip({
+            content: {
+               // text: "custom text",
+                text: $('#' + id),
+                title: {
+                    text: 'Create New Goal Entry',
+                    button: 'Close' // Close button
+              },  
+            },  
+            style: { 
+                classes: 'qtip-blue qtip-rounded'
+            },
+           hide: true, // Don't hide on any event except close button
+           show:  'click'
+        }); 
+    }); 
+}
+
 function register_new_goal_handler() {
     $("#create_new_goal").submit(submit_new_goal);
+    $(".goal_entry_form").bind('submit', submit_new_goal_entry);
 }
 
 
@@ -41,6 +65,33 @@ function submit_new_goal() {
     return false;
 }
 
+function submit_new_goal_entry(eventObject) {
+    console.log("in submit new goal entry");
+    form = $(eventObject.target);
+    console.log(eventObject.target);
+    console.log(form);
+    $.post("", form.serialize(), function (data, textStatus, jqXHR) {
+        if (jqXHR.getResponseHeader('X-addNewGoalEntryStatus') == 'success') {
+            var container_id = 'div_' + open_qtip
+            console.log($('#' + container_id));
+            console.log(data);
+            $('#' + container_id).html(data);
+            $('#' + open_qtip).qtip('hide');
+            register_new_goal_handler();
+            // TODO - Add in a new goal tab to calendar
+        } else {
+            var container_id = 'div_' + open_qtip
+            console.log($('#' + container_id));
+            console.log(data);
+            $('#' + container_id).html(data);
+            console.log("In the failed case");
+            $('#' + container_id).show();
+            register_new_goal_handler();
+        }
+    });
+    return false;
+}
+
 function tab_click_handler() {
     if ($(this).attr('id') != 'create_new_goal2') {
         $('.goal-tab').removeClass('selected-tab');
@@ -51,6 +102,7 @@ function tab_click_handler() {
 
 $(function () {
     qtip_content();
+    datecell_qtip_content();
     register_new_goal_handler();
 
     $('.goal-tab').click(tab_click_handler);
@@ -58,5 +110,12 @@ $(function () {
     $('.datecell').click(function () {
         $('.datecell').removeClass('selected-datecell');
         $(this).addClass('selected-datecell');
-    });
+    	
+		if(open_qtip != undefined) {
+			console.log("open qtip is : " + open_qtip);
+			$('#' + open_qtip).qtip('hide');
+		}
+		open_qtip =  $(this).attr('id');
+		$('#' + open_qtip).show();
+	});
 });

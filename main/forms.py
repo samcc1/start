@@ -1,5 +1,5 @@
 from django import forms
-from main.models import Goal
+from main.models import Goal,GoalEntry
 from django.utils.encoding import force_text, python_2_unicode_compatible
 #from django.forms import ModelChoiceField
 #class MyModelChoiceField(forms.ModelChoiceField):
@@ -39,3 +39,9 @@ class NewGoalForm(forms.ModelForm):
 #		widgets = {
 #			'icon':IconInput()
 #		}	
+
+class NewGoalEntryForm(forms.ModelForm):
+	class Meta:
+		model = GoalEntry
+		fields = ['goal','entrydate','desc','starcolor','stat']
+

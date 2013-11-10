@@ -1,0 +1,10 @@
+	<form name='new_goal_entry' id='new_goal_entry' method="post" class='goal_entry_form'>
+
+	{% csrf_token %}
+	{{ nge_form.as_p  }}
+
+	<div id='nge_submit_button' name='nge_submit_button' value='nge_submit_button'>
+		<input id='nge_submit' value='Create' type='submit' name='nge_submit'>
+	</div>
+
+	</form>

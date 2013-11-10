@@ -3,8 +3,8 @@
 	{% csrf_token %}
 	{{ form.as_p  }}
 
-	<div id='submit_button_container'>
-		<input id='submit_new_goal' value='Create' type='submit'>
+	<div id='submit_button_container', name='submit_button_container' value='submit_button_container'>
+		<input id='submit_new_goal' value='Create' type='submit' name='submit_new_goal'>
 	</div>
 
 	</form>
