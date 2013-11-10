@@ -77,10 +77,6 @@ function submit_new_goal_entry(eventObject) {
             goalentry = form.find('textarea[name="desc"]').val()
             goalcolor = $('#goal-tab-' + goalid).attr('goalcolor');
 
-            console.log('goalname: ' + goalname);
-            console.log('goalentry: ' + goalentry);
-            console.log('goalcolor: ' + goalcolor);
-
             var container_id = 'div_' + open_qtip
             $('#' + open_qtip).qtip('hide');
             var daySelector = '#' + open_qtip;
@@ -102,35 +98,54 @@ function submit_new_goal_entry(eventObject) {
             }
 
             if ($(dayStarSelector).length == 0) {
-                console.log('add star');
                 // There's no star on this day for this goal, so just add it.
                 $(daySelector).append("<div class='calendar-star star-"+goalid+"'><img class='summary-star star-value-"+starcolor+"' src='"+file+"'></div>").children(':last').show();
             } else if ($(dayStarColorSelector).length == 0) {
-                console.log('change star');
                 // There is a star on this day for this goal, but it's the wrong color, so we need to update it.
                 star = $(dayStarAnySelector);
                 star.removeClass('star-value-1 star-value-2 star-value-3');
                 star.addClass('star-value=' + starcolor);
                 star.attr('src', file);
-            } else {
-                console.log('do nothing');
             }
 
             wallday = $('#wall-day-' + entrydate);
+            var hadDay = true;
             if (wallday.length == 0) {
-                // find the right place to insert a new wall-day
-            } else {
-                wallday.append("<div id='wall-entry'>" +
-                            "<img class='summary-star wall-star' src='"+file+"'>" +
-                            "<div class='goal-wall-entry'>" +
-                            "[<span class='goal-color-"+goalcolor+"'>"+goalname+"</span>] " +
-                            "</div>" +
-                            "<div class='goal-wall-entry'>" +
-                            "    " + goalentry +
-                            "</div>" +
-                            "<div class='cleardiv'></div>" +
-                        "</div> ").children(':last').hide().slideDown();
+                var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                var date = new Date(entrydate);
+                hadDay = false;
+                wallday = $("<div id='wall-day-"+entrydate+"' class='wall-day' date='"+entrydate+"''><div>"+months[date.getUTCMonth()] + " " + date.getUTCDate() + "</div></div>");
+                wallday.hide();
+                var added = false;
+                $('.wall-day').each(function () {
+                    if ($(this).attr('date') < entrydate) {
+                        added = true;
+                        wallday.insertBefore($(this));
+                        return false;
+                    }
+                });
+                if (!added) {
+                    $('#wall-data').append(wallday);
+                }
             }
+            entry = $("<div id='wall-entry'>" +
+                        "<img class='summary-star wall-star' src='"+file+"'>" +
+                        "<div class='goal-wall-entry'>" +
+                        "[<span class='goal-color-"+goalcolor+"'>"+goalname+"</span>] " +
+                        "</div>" +
+                        "<div class='goal-wall-entry'>" +
+                        goalentry +
+                        "</div>" +
+                        "<div class='cleardiv'></div>" +
+                        "</div> ");
+            wallday.append(entry.hide());
+            if (hadDay) {
+                entry.slideDown();
+            } else {
+                entry.show();
+                wallday.slideDown();
+            }
+                
         } else {
             var container_id = 'div_' + open_qtip
             console.log($('#' + container_id));
