@@ -23,8 +23,7 @@ def GetGoalEntryList(user, date):
     return goalentry_list
 
 def getWeeksToDisplay(selectedDate = getToday()):
-    today = getToday()
-    enddate = datetime.datetime.strptime(datetime.datetime.strftime(today, "%Y %W 0"), "%Y %W %w").date() # magic
+    enddate = getNextSunday()
     weeks = []
     for weekoffset in range(4, -1, -1):
         week = []
@@ -34,6 +33,9 @@ def getWeeksToDisplay(selectedDate = getToday()):
             week.append(caldate)
         weeks.append(week)
     return weeks
+
+def getNextSunday(date = getToday()):
+    return date + datetime.timedelta(6 - (date.weekday() if date.weekday() < 6 else -1))
 
 @login_required
 def home(request):
