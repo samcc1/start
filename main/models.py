@@ -10,6 +10,9 @@ class Goal(models.Model):
 #	icon = models.IntegerField()
 	stat_desc = models.CharField(blank=True,max_length=100)
 
+	def __str__(self):
+		return self.title
+
 class GoalEntry(models.Model):
 	user = models.ForeignKey(User)
 	goal = models.ForeignKey(Goal)
@@ -17,4 +20,7 @@ class GoalEntry(models.Model):
 	desc = models.TextField(blank=True)
 	starcolor = models.IntegerField()
 	stat = models.IntegerField()
+
+	def __str__(self):
+		return '%s %s' % (self.entrydate, str(self.goal))
 
