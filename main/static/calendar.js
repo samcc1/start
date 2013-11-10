@@ -70,14 +70,37 @@ function submit_new_goal_entry(eventObject) {
     form = $(eventObject.target);
     $.post("", form.serialize(), function (data, textStatus, jqXHR) {
         if (jqXHR.getResponseHeader('X-addNewGoalEntryStatus') == 'success') {
+            goalid = form.find('select[name="goal"]').val();
+            starcolor = form.find('select[name="starcolor"]').val();
             var container_id = 'div_' + open_qtip
-            console.log($('#' + container_id));
-            //$('#' + container_id).html(data);
             $('#' + open_qtip).qtip('hide');
-            //register_new_goal_handler();
-            // TODO - Add in a new goal tab to calendar
-            if ($('#' + open_qtip).children('.summary-star').length == 0) {
-                $('#' + open_qtip).append("<img class='summary-star' src='static/stars/gold.png'>");
+            var daySelector = '#' + open_qtip;
+            var dayStarSelector = daySelector + ' .star-' + goalid;
+            var dayStarColorSelector = dayStarSelector + ' .star-value-' + starcolor;
+            var dayStarAnySelector = dayStarSelector + ' .summary-star';
+
+            var file = 'foo';
+            switch (starcolor) {
+                case '1':
+                    file = "/static/stars/bronze.png";
+                    break;
+                case '2':
+                    file = "/static/stars/silver.png";
+                    break;
+                case '3':
+                    file = "/static/stars/gold.png";
+                    break;
+            }
+
+            if ($(dayStarSelector).length == 0) {
+                // There's no star on this day for this goal, so just add it.
+                $(daySelector).append("<div class='calendar-star star-"+goalid+"'><img class='summary-star star-value-"+starcolor+"' src='"+file+"'></div>");
+            } else if ($(dayStarColorSelector).length == 0) {
+                // There is a star on this day for this goal, but it's the wrong color, so we need to update it.
+                star = $(dayStarAnySelector);
+                star.removeClass('star-value-1 star-value-2 star-value-3');
+                star.addClass('star-value=' + starcolor);
+                star.attr('src', file);
             }
         } else {
             var container_id = 'div_' + open_qtip
@@ -96,6 +119,9 @@ function tab_click_handler() {
         $('.goal-tab').removeClass('selected-tab');
         $(this).addClass('selected-tab');
         // select the goal for this tab
+        goalid = $(this).attr('goalid');
+        $('.calendar-star').hide();
+        $('.star-' + goalid).show();
     }
 }
 

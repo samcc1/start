@@ -89,7 +89,7 @@ def handle_new_goal_form(request):
 
 def handle_new_goal_entry_form(request):
     try:
-        goal_entry = GoalEntry.objects.get(entrydate=request.POST['entrydate'])
+        goal_entry = GoalEntry.objects.get(entrydate=request.POST['entrydate'], goal=request.POST['goal'])
         nge_form = NewGoalEntryForm(request.POST, instance=goal_entry)
     except ObjectDoesNotExist:
         nge_form = NewGoalEntryForm(request.POST)

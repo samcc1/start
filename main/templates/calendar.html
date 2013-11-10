@@ -5,7 +5,7 @@
 
 <div id='goal-tabs'>
 {% for goal in goals %}
-    <div class='goal-tab'>{{ goal.title }}</div>
+    <div goalid='{{ goal.id }}' class='goal-tab'>{{ goal.title }}</div>
 {% endfor %}
 <div id='create_new_goal2' class='goal-tab'>+</div>
 <div id="new_goal_container" class="tooltiptext">
@@ -24,6 +24,17 @@
     {% for day in week %}
         <td id='datecell_{{day.date | date:"Y-m-d"}}' class='datecell {% if day.istoday %}todaycell{% endif %} {% if day.isSelected %}selected-datecell{% endif %}'>
 		{% if day.date.day == 1 %}{{day.date | date:"j M"}}{% else %}{{day.date | date:"j"}}{% endif %}
+        {% for goalid, entry in day.entries.items %}
+            <div class='calendar-star star-{{goalid}}'>
+                {% if entry.starcolor == 1 %}
+                    <img class='summary-star star-value-1' src='static/stars/bronze.png'>
+                {% elif entry.starcolor == 2 %}
+                    <img class='summary-star star-value-2' src='static/stars/silver.png'>
+                {% elif entry.starcolor == 3 %}
+                    <img class='summary-star star-value-3' src='static/stars/gold.png'>
+                {% endif %} 
+            </div>
+        {% endfor %}
 		<div id= 'div_datecell_{{day.date | date:"Y-m-d"}}' class="tooltiptext">
 			{% include 'new_goal_entry.html' %}
 		</div>
