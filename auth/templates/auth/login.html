@@ -16,6 +16,8 @@
     <h3>Signup</h3>
     <form method="POST" action="/auth/newUser/">{% csrf_token %}
     {{ newUserForm.as_p }}
+<div class=cleardiv></div>
+    <br>
     <input type=submit value="Submit" />
     </form>
 </div>

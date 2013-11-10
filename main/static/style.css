@@ -3,6 +3,45 @@ body {
     background-color: #bbbbbb;
 }
 
+input[type=submit] {
+width:100px;
+right:20px;
+bottom:10px;
+background:#09C;
+color:#fff;
+font-family: Tahoma, Geneva, sans-serif;
+height:30px;
+-webkit-border-radius: 15px;
+-moz-border-radius: 15px;
+border-radius: 15px;
+border: 1p solid #999;
+}
+input[type=submit]:hover {
+background:#fff;
+color:#09C;
+}
+
+input {
+width:200px;
+display:block;
+border: 1px solid #999;
+height: 25px;
+-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+-moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+#signupDiv input {
+    float:right;
+    clear:both;
+}
+
+#signupDiv label {
+    float:right;
+    clear:both;
+}
+
 #main {
     margin: auto;
     width: 700px;
@@ -64,34 +103,6 @@ color: #09C;
 text-decoration: none;
 }
 
-
-input[type=submit] {
-width:100px;
-right:20px;
-bottom:10px;
-background:#09C;
-color:#fff;
-font-family: Tahoma, Geneva, sans-serif;
-height:30px;
--webkit-border-radius: 15px;
--moz-border-radius: 15px;
-border-radius: 15px;
-border: 1p solid #999;
-}
-input[type=submit]:hover {
-background:#fff;
-color:#09C;
-}
-
-input {
-width:200px;
-display:block;
-border: 1px solid #999;
-height: 25px;
--webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
--moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
-}
 
 
 select {
