@@ -4,6 +4,11 @@
     padding: 10px;
 }
 
+.goal-tab {
+    border: 1px solid black;
+    padding: 3px;
+}
+
 #calendar-table {
     background-color: #FFFFFF;
     border: 1px solid black;

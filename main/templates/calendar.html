@@ -1,5 +1,6 @@
 
 <div id='calendar'>
+<div id='goal-tabs'>{% for goal in goals %}<span class='goal-tab'>{{ goal.title }}</span>{% endfor %}</div>
 <table id='calendar-table' class='section'>
 <tr>
 {% for weekday in weekdays %}

@@ -37,14 +37,14 @@ def getWeeksToDisplay(selectedDate = getToday()):
 
 @login_required
 def home(request):
-
     if request.method == 'POST':
         return handle_new_goal_form(request)
 
     weeks = getWeeksToDisplay()
+    goals = Goal.objects.filter(user = request.user)
     goalentry_list = GetGoalEntryList(request.user, getToday())
     form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
-    return render(request, 'home.html', {'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list})
+    return render(request, 'home.html', {'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
 
 def handle_new_goal_form(request):
     form = NewGoalForm(request.POST)
