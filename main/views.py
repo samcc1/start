@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.core.exceptions import ObjectDoesNotExist
 from main.forms import NewGoalForm,NewGoalEntryForm
 from models import GoalEntry
 from models import Goal
@@ -12,10 +13,20 @@ def getToday():
     return datetime.date.today()
 
 class CalendarDate(object):
-    def __init__(self, date, isSelected=False):
+    def __init__(self, user, date, isSelected=False):
         self.date = date
         self.istoday = date == getToday()
         self.isSelected = isSelected
+        goals = Goal.objects.filter(user=user)
+        self.entries = {}
+        self.forms = {}
+        for goal in goals:
+            try:
+                entry = GoalEntry.objects.get(goal=goal, entrydate=date)
+                self.entries[goal.id] = entry
+                self.forms[goal.id] = NewGoalEntryForm(entry)
+            except ObjectDoesNotExist:
+                self.forms[goal.id] = NewGoalEntryForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
 
 def GetGoalEntryList(user, start_date, end_date):
     goalentry_list = []
@@ -25,14 +36,14 @@ def GetGoalEntryList(user, start_date, end_date):
 	start_date-=datetime.timedelta(days=1)
     return goalentry_list
 
-def getWeeksToDisplay(selectedDate = getToday()):
+def getWeeksToDisplay(user, selectedDate = getToday()):
     enddate = getNextSunday()
     weeks = []
     for weekoffset in range(4, -1, -1):
         week = []
         for dayoffset in range(6, -1, -1):
             date = enddate - datetime.timedelta(weekoffset * 7 + dayoffset + 1)
-            caldate = CalendarDate(date, date == selectedDate)
+            caldate = CalendarDate(user, date, date == selectedDate)
             week.append(caldate)
         weeks.append(week)
     return weeks
@@ -52,7 +63,7 @@ def home(request):
             print("in handle new goal")
             return handle_new_goal_form(request)
 
-    weeks = getWeeksToDisplay()
+    weeks = getWeeksToDisplay(request.user)
     display_duration_start = weeks[0][0].date
     goals = Goal.objects.filter(user = request.user)
     goalentry_list = GetGoalEntryList(request.user, getToday(), display_duration_start)
