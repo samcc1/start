@@ -65,6 +65,8 @@ body {
 #wall {
     width: 330px;
     float: left;
+    background-image: url('backgrounds/goalwall.jpg');
+    background-size: cover;
 }
 
 #stats {
