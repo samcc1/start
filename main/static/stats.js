@@ -1,10 +1,10 @@
-$(function(){
-    var s1 = [2, 6, 7, 10];
-    var s2 = [7, 5, 3, 2];
-    var s3 = [14, 9, 3, 8];
-    plot3 = $.jqplot('chart', [s1, s2, s3], {
+
+function PrintStackedBarChart(data_gold, data_silver, data_bronze){
+    console.log(data_gold);
+    plot3 = $.jqplot('chart', [data_gold, data_silver, data_bronze], {
         stackSeries: true,
         //captureRightClick: true,
+	seriesColors:['#FDD017', '#C0C0C0', '#CD7F32'],
         seriesDefaults:{
             renderer:$.jqplot.BarRenderer,
             rendererOptions: {
@@ -12,11 +12,11 @@ $(function(){
             },
             pointLabels: {show: true}
         },
-        legend: {
-            show: true,
-            location: 'e',
-            placement: 'outside'
-        }      
+//       legend: {
+//            show: true,
+//            location: 'e',
+//            placement: 'outside'
+//        }      
     });
  
     //$('#chart').bind('jqplotDataRightClick', 
@@ -24,4 +24,4 @@ $(function(){
     //        $('#info3').html('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
     //    }
     //); 
-});
+};

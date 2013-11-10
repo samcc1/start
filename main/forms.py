@@ -1,6 +1,11 @@
 from django import forms
 from main.models import Goal,GoalEntry
-from django.utils.encoding import force_text, python_2_unicode_compatible
+
+class DynNameTextInput(forms.TextInput):
+	def render(self, name, value, attrs=None):
+#		name = "NewName"
+		return super(DynNameTextInput, self).render(name, value, attrs)
+
 #from django.forms import ModelChoiceField
 #class MyModelChoiceField(forms.ModelChoiceField):
 #class IconInput(forms.RadioSelect):
@@ -44,4 +49,7 @@ class NewGoalEntryForm(forms.ModelForm):
 	class Meta:
 		model = GoalEntry
 		fields = ['goal','entrydate','desc','starcolor','stat']
+		widgets = {
+			'stat':DynNameTextInput()
+		}
 

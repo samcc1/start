@@ -1,3 +1,28 @@
 <div id='stats' class='section'>
-<div id='chart'></div>
+<div id='chart'>
+<script type="text/javascript">
+	var data_gold = new Array;
+	var data_silver = new Array;
+	var data_bronze = new Array;
+	for (var index = 0; index <5 ; index++) {
+		data_gold[index] = 0;
+		data_silver[index] = 0;
+		data_bronze[index] = 0;
+	}
+	{% for week in weeks %}
+	{% for caldate in week %}
+	{% for goalentry in caldate.entries.values %}
+		if ({{goalentry.starcolor}} == 1) {
+			data_gold[{{goalentry.goal.id}}]++;
+		} else if ({{goalentry.starcolor}} == 2) {
+			data_silver[{{goalentry.goal.id}}]++;
+		} else if ({{goalentry.starcolor}} == 3) {
+			data_gold[{{goalentry.goal.id}}]++;
+		}
+	{% endfor %}	
+	{% endfor %}
+	{% endfor %}
+	PrintStackedBarChart(data_gold, data_silver, data_bronze);	
+</script>
+</div>
 </div>

@@ -3,12 +3,17 @@
 <hr>
 <div id='wall-data'>
 <h4>{{date}}</h4>
-{% for goalentry in goalentry_list %}
-{{goalentry.entrydate}}
+{% for week in weeks %}
+{% for caldate in week %}
+{% if caldate.entries %}
+{{caldate.date}}
+{% endif %}
+{% for goalentry in caldate.entries.values %}
 <div id='wall-entry'>
 <p align='left'>
 <img class='goal-icon' src='static/icons/{{goalentry.goal.id}}.png'>
 <b>{{goalentry.goal.title}}</b>
+<br>
 {% if goalentry.starcolor == 1 %}
 	<img class='summary-star' src='static/stars/bronze.png'>
 {% elif goalentry.starcolor == 2 %}
@@ -19,9 +24,12 @@
 <br>
 {{goalentry.goal.stat_desc}} {{goalentry.stat}}
 <br>
-{{goalentry.desc}}
+Description: {{goalentry.desc}}
 </p>
+<hr>
 </div>
+{% endfor %}
+{% endfor %}
 {% endfor %}
 </div>
 </div>

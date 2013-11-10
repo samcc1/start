@@ -139,13 +139,13 @@ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
 .summary-star {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
 }
 
 .goal-icon {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
 }
 
 
@@ -162,7 +162,7 @@ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     font-weight: bold;
     line-height: 24px;
     float: left;
-    background-image: url('backgrounds/goalwall.jpg');
+/*background-image: url('backgrounds/goalwall.jpg');*/
     background-size: cover;
 }
 
