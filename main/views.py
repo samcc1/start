@@ -54,7 +54,7 @@ def handle_new_goal_form(request):
         print new_goal.numdays
         new_goal.enddate = new_goal.startdate + datetime.timedelta(days=new_goal.numdays)
         new_goal.save()
-        form = NewGoalForm(initial={'startdate': datetime.date.today()})
+        form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
         response = render(request, 'new_goal.html', {'form': form})
         response['X-addNewGoalStatus'] = 'success'
     else:

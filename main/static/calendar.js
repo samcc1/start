@@ -29,7 +29,7 @@ function submit_new_goal() {
         if (jqXHR.getResponseHeader('X-addNewGoalStatus') == 'success') {
             goalTitle = $("#id_title").val();
             $("#new_goal_container").html(data);
-            $('a').qtip('hide');
+            $('#create_new_goal2').qtip('hide');
             register_new_goal_handler();
             $("<div class='goal-tab'>"+goalTitle+"</div>").insertBefore("#create_new_goal2").click(tab_click_handler);
         } else {
