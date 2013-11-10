@@ -7,7 +7,7 @@ class Goal(models.Model):
 	startdate = models.DateField()
 	enddate = models.DateField()
 	numdays = models.IntegerField()
-#	icon = models.IntegerField()
+	icon = models.IntegerField()
 	stat_desc = models.CharField(blank=True,max_length=100)
 
 	def __str__(self):
