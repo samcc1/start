@@ -8,6 +8,7 @@ class Goal(models.Model):
 	enddate = models.DateField()
 	numdays = models.IntegerField()
 	icon = models.IntegerField()
+	stat_desc = models.CharField(blank=True,max_length=100)
 
 
 class GoalEntry(models.Model):
@@ -17,6 +18,5 @@ class GoalEntry(models.Model):
 	desc = models.TextField(blank=True)
 	starcolor = models.IntegerField()
 	stat = models.IntegerField()
-	stat_desc = models.CharField(blank=True,max_length=100)
 
 
