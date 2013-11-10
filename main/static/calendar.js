@@ -70,8 +70,8 @@ function submit_new_goal_entry(eventObject) {
     $.post("", form.serialize(), function (data, textStatus, jqXHR) {
         if (jqXHR.getResponseHeader('X-addNewGoalEntryStatus') == 'success') {
             goalSelect = form.find('select[name="goal"]');
-            goalid = goalSelect.val();
-            goalname = goalSelect.find('option[value="' + goalid + '"]').text()
+            goalid = form.find('input[name="goal"]').val();
+            goalname = $('#goal-tab-' + goalid).text();
             starcolor = form.find('select[name="starcolor"]').val();
             entrydate = form.find('input[name="entrydate"]').val();
             goalentry = form.find('textarea[name="desc"]').val()
