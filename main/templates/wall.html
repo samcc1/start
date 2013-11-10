@@ -1,8 +1,10 @@
 <div id='wall' class='section'>
 <h3>Goal Wall</h3>
-<h4>{{date}}</h4>
 <hr>
+<div id='wall-data'>
+<h4>{{date}}</h4>
 {% for goalentry in goalentry_list %}
+{{goalentry.entrydate}}
 <div id='wall-entry'>
 <p align='left'>
 <img class='goal-icon' src='static/icons/{{goalentry.goal.id}}.png'>
@@ -21,5 +23,6 @@
 </p>
 </div>
 {% endfor %}
+</div>
 </div>
 

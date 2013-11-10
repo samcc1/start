@@ -70,9 +70,17 @@ body {
 
 #wall {
     width: 330px;
+    height:300px;
     float: left;
     background-image: url('backgrounds/goalwall.jpg');
     background-size: cover;
+}
+
+#wall-data {
+    width: 330px;
+    height: 235px;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .wall-entry {
@@ -87,3 +95,4 @@ body {
 .tooltiptext{
     display: none;
 }
+

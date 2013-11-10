@@ -17,9 +17,12 @@ class CalendarDate(object):
         self.istoday = date == getToday()
         self.isSelected = isSelected
 
-def GetGoalEntryList(user, date):
+def GetGoalEntryList(user, start_date, end_date):
     goalentry_list = []
-    goalentry_list = GoalEntry.objects.filter(user = user, entrydate = date)
+    while end_date < start_date:
+	gentry_list = GoalEntry.objects.filter(user = user, entrydate = start_date)
+    	goalentry_list += gentry_list
+	start_date-=datetime.timedelta(days=1)
     return goalentry_list
 
 def getWeeksToDisplay(selectedDate = getToday()):
@@ -50,8 +53,9 @@ def home(request):
             return handle_new_goal_form(request)
 
     weeks = getWeeksToDisplay()
+    display_duration_start = weeks[0][0].date
     goals = Goal.objects.filter(user = request.user)
-    goalentry_list = GetGoalEntryList(request.user, getToday())
+    goalentry_list = GetGoalEntryList(request.user, getToday(), display_duration_start)
     form = NewGoalForm(initial={'startdate': datetime.date.today(), 'numdays': 28})
     nge_form = NewGoalEntryForm()
     return render(request, 'home.html', {'nge_form': nge_form, 'form': form, 'weekdays': WEEKDAYS, 'weeks': weeks, 'goalentry_list': goalentry_list, 'goals': goals})
