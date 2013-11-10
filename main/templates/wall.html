@@ -8,7 +8,7 @@
             <div id='wall-day-{{caldate.date | date:"Y-m-d"}}' class='wall-day' date='{{caldate.date | date:"Y-m-d"}}'>
                 <div>{{caldate.date | date:"M j"}}</div>
                 {% for goalentry in caldate.entries.values %}
-                    <div id='wall-entry'>
+                    <div class='wall-entry'>
                         {% if goalentry.starcolor == 1 %}
                         	<img class='summary-star wall-star' src='static/stars/bronze.png'>
                         {% elif goalentry.starcolor == 2 %}

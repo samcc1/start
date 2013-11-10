@@ -132,7 +132,7 @@ function submit_new_goal_entry(eventObject) {
                     $('#wall-data').append(wallday);
                 }
             }
-            entry = $("<div id='wall-entry'>" +
+            entry = $("<div class='wall-entry'>" +
                         "<img class='summary-star wall-star' src='"+file+"'>" +
                         "<div class='goal-wall-entry'>" +
                         "[<span class='goal-color-"+goalcolor+"'>"+goalname+"</span>] " +
