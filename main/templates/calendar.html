@@ -5,7 +5,7 @@
 
 <div id='goal-tabs'>
 {% for goal in goals %}
-    <div goalid='{{ goal.id }}' class='goal-tab'>{{ goal.title }}</div>
+    <div goalid='{{ goal.id }}' class='goal-tab goal-color-{{goal.icon}}'>{{ goal.title }}</div>
 {% endfor %}
 <div id='create_new_goal2' class='goal-tab'>+</div>
 <div id="new_goal_container" class="tooltiptext">

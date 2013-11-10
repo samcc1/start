@@ -154,6 +154,23 @@ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     color: #CC4444;
 }
 
+.goal-color-0 {
+    color: red;
+}
+
+.goal-color-1 {
+    color: green;
+}
+
+.goal-color-2 {
+    color: blue;
+}
+
+.goal-wall-entry {
+    float: left;
+    margin-left: 4px;
+}
+
 #wall {
     width: 330px;
     height:300px;
@@ -162,8 +179,14 @@ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     font-weight: bold;
     line-height: 24px;
     float: left;
-/*background-image: url('backgrounds/goalwall.jpg');*/
-    background-size: cover;
+}
+
+.wall-day:nth-child(odd) {
+    background-color: #F7F7FF;
+}
+
+.wall-star {
+    float: right;
 }
 
 #wall-data {
@@ -176,7 +199,7 @@ box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
 .wall-entry {
-
+    text-align: left;
 }
 
 #stats {

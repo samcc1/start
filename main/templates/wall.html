@@ -2,34 +2,32 @@
 <h3>Goal Wall</h3>
 <hr>
 <div id='wall-data'>
-<h4>{{date}}</h4>
-{% for week in weeks %}
-{% for caldate in week %}
-{% if caldate.entries %}
-{{caldate.date}}
-{% endif %}
-{% for goalentry in caldate.entries.values %}
-<div id='wall-entry'>
-<p align='left'>
-<img class='goal-icon' src='static/icons/{{goalentry.goal.id}}.png'>
-<b>{{goalentry.goal.title}}</b>
-<br>
-{% if goalentry.starcolor == 1 %}
-	<img class='summary-star' src='static/stars/bronze.png'>
-{% elif goalentry.starcolor == 2 %}
-	<img class='summary-star' src='static/stars/silver.png'>
-{% elif goalentry.starcolor == 3 %}
-	<img class='summary-star' src='static/stars/gold.png'>
-{% endif %}
-<br>
-{{goalentry.goal.stat_desc}} {{goalentry.stat}}
-<br>
-Description: {{goalentry.desc}}
-</p>
-<hr>
-</div>
-{% endfor %}
-{% endfor %}
+{% for week in weeks reversed %}
+    {% for caldate in week reversed %}
+        {% if caldate.entries %}
+            <div class='wall-day'>
+                <div>{{caldate.date | date:"M d"}}</div>
+                {% for goalentry in caldate.entries.values %}
+                    <div id='wall-entry'>
+                        {% if goalentry.starcolor == 1 %}
+                        	<img class='summary-star wall-star' src='static/stars/bronze.png'>
+                        {% elif goalentry.starcolor == 2 %}
+                        	<img class='summary-star wall-star' src='static/stars/silver.png'>
+                        {% elif goalentry.starcolor == 3 %}
+                        	<img class='summary-star wall-star' src='static/stars/gold.png'>
+                        {% endif %}
+                        <div class='goal-wall-entry'>
+                            [<span class='goal-color-{{goalentry.goal.icon}}'>{{goalentry.goal.title}}</span>] 
+                        </div>
+                        <div class='goal-wall-entry'>
+                            {{goalentry.desc}}
+                        </div>
+                        <div class='cleardiv'></div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endfor %}
 </div>
 </div>
