@@ -4,24 +4,52 @@
     padding: 10px;
 }
 
-.goal-tab {
-    border: 1px solid black;
-    padding: 3px;
+#calendar-container {
+    width: 385px;
+    height: 275px;
+    margin: auto;
 }
+
+#goal-tabs {
+    text-align: left;
+    margin-left: 8px;
+    background-color: yellow;
+    padding: 0px;
+}
+
+.goal-tab {
+    float: left;
+    border: 1px solid black;
+    border-bottom: 0px;
+    padding: 0px 3px;
+    cursor: pointer;
+    cursor: hand;
+    background-color: #FFFFFF;
+    border-radius: 5px 5px 0px 0px;
+    height: 18px;
+}
+
+.goal-tab.selected-tab {
+    margin-top: 1px;
+    margin-bottom: -1px;
+}
+
 
 #calendar-table {
     background-color: #FFFFFF;
     border: 1px solid black;
     border-radius: 10px;
     margin: auto;
+    width: 100%;
+    height: 95%;
 }
 
 .calendar-row {
 }
 
 .datecell {
-    width: 55px;
-    height: 55px;
+    width: 14%;
+    height: 18%;
     border: 1px solid #DDDDDD;
     vertical-align: top;
     cursor: pointer;
