@@ -122,6 +122,8 @@ function tab_click_handler() {
         goalid = $(this).attr('goalid');
         $('.calendar-star').hide();
         $('.star-' + goalid).show();
+        $('.goal_entry_form').hide();
+        $('.entry_form_' + goalid).show();
     }
 }
 

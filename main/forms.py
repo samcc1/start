@@ -46,10 +46,16 @@ class NewGoalForm(forms.ModelForm):
 #		}	
 
 class NewGoalEntryForm(forms.ModelForm):
-	class Meta:
-		model = GoalEntry
-		fields = ['goal','entrydate','desc','starcolor']
-		widgets = {
-			'stat':DynNameTextInput()
-		}
+    class Meta:
+        model = GoalEntry
+        fields = ['entrydate','desc','starcolor', 'goal']
+        widgets = {
+            'goal': forms.widgets.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(NewGoalEntryForm, self).__init__(*args, **kwargs)
+        if self.instance.id:
+            self.fields['entrydate'].widget.attrs['readonly'] = True
+
 

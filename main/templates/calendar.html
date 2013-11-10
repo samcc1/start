@@ -35,11 +35,11 @@
                 {% endif %} 
             </div>
         {% endfor %}
-        {% for goalid,nge_form in day.forms.items %}
-		    <div id= 'div_datecell_{{day.date | date:"Y-m-d"}}' class="tooltiptext">
-			    {% include 'new_goal_entry.html' %}
-		    </div>
-        {% endfor %}
+        <div id= 'div_datecell_{{day.date | date:"Y-m-d"}}' class="tooltiptext">
+            {% for goalid,nge_form in day.forms.items %}
+		    	{% include 'new_goal_entry.html' %}
+            {% endfor %}
+		</div>
 		</td>
     {% endfor %}
     </tr>

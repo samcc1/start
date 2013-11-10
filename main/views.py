@@ -23,9 +23,10 @@ class CalendarDate(object):
             try:
                 entry = GoalEntry.objects.get(goal=goal, entrydate=date)
                 self.entries[goal.id] = entry
-                self.forms[goal.id] = NewGoalEntryForm(entry)
+                print entry
+                self.forms[goal.id] = NewGoalEntryForm(instance=entry)
             except ObjectDoesNotExist:
-                self.forms[goal.id] = NewGoalEntryForm()
+                self.forms[goal.id] = NewGoalEntryForm(initial={'goal' :goal.id, 'entrydate' : date})
 
 def GetGoalEntryList(user, start_date, end_date):
     goalentry_list = []
@@ -92,6 +93,7 @@ def handle_new_goal_entry_form(request):
         goal_entry = GoalEntry.objects.get(entrydate=request.POST['entrydate'], goal=request.POST['goal'])
         nge_form = NewGoalEntryForm(request.POST, instance=goal_entry)
     except ObjectDoesNotExist:
+        print "object not found"
         nge_form = NewGoalEntryForm(request.POST)
     if nge_form.is_valid():
         print "form is valid for goal entry"
