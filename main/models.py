@@ -14,11 +14,16 @@ class Goal(models.Model):
 		return self.title
 
 class GoalEntry(models.Model):
+	STAR_COLORS = (
+		(1, 'Bronze'),
+		(2, 'Silver'),
+		(3, 'Gold'),
+	)
 	user = models.ForeignKey(User)
 	goal = models.ForeignKey(Goal)
 	entrydate = models.DateField()
 	desc = models.TextField(blank=True)
-	starcolor = models.IntegerField()
+	starcolor = models.IntegerField(choices=STAR_COLORS)
 	stat = models.IntegerField()
 
 	def __str__(self):
